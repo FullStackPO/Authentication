@@ -15,14 +15,14 @@ const loginUserSchema = new mongoose.Schema({
     email : {
         type : String,
         trim : true,
-        unique : true,
+        unique : [true, "Email already in use."],
         required : true
     },
 
     userid : {
         type : String,
         trim : true,
-        unique : true,
+        unique : [true,"User ID already exist"],
         required : true
     },
 
