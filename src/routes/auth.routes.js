@@ -1,5 +1,6 @@
 const express = require('express')
 const loginModel = require('../models/login.model')
+const jwt = require('jsonwebtoken')
 
 const authRouter = express.Router()
 
@@ -25,8 +26,15 @@ authRouter.post('/register', async(req , res) => {
 
    const registerUser =  await loginModel.create({ name, contact, email, userid, password})
 
+   const token = jwt.sign({
+        id: registerUser._id
+    },
+    process.env.JWT_SECRET
+    )
+
    res.status(201).json({
-    registerUser
+    registerUser,
+    token
    })
 })
 
